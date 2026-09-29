@@ -31,3 +31,4 @@
 /Users/omg/development/dotNet/KutuphaneApi/obj/Debug/net10.0/KutuphaneApi.pdb
 /Users/omg/development/dotNet/KutuphaneApi/obj/Debug/net10.0/KutuphaneApi.genruntimeconfig.cache
 /Users/omg/development/dotNet/KutuphaneApi/obj/Debug/net10.0/ref/KutuphaneApi.dll
+/Users/omg/development/dotNet/KutuphaneApi/obj/Debug/net10.0/KutuphaneApi.sourcelink.json

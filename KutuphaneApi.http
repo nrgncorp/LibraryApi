@@ -1,6 +1,16 @@
-@KutuphaneApi_HostAddress = http://localhost:5089
+@host = http://localhost:5089
 
-GET {{KutuphaneApi_HostAddress}}/weatherforecast/
-Accept: application/json
+### Tüm kitaplar
+GET {{host}}/books
 
-###
+### Yeni kitap ekle
+POST {{host}}/books
+Content-Type: application/json
+
+{
+  "title": "Saatleri Ayarlama Enstitüsü",
+  "author": "Ahmet Hamdi Tanpınar"
+}
+
+### Eklenen kitabı getir
+GET {{host}}/books/4
