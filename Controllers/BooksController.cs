@@ -1,28 +1,28 @@
 using Microsoft.AspNetCore.Mvc;
 using KutuphaneApi.Models;
 using KutuphaneApi.Dtos;
+using KutuphaneApi.Data;
 
 [ApiController]
 [Route("books")]
 public class BooksController : ControllerBase
 {
-    private static readonly List<Book> books = new()
+    private readonly LibraryDbContext _db;
+    public BooksController(LibraryDbContext db)
     {
-        new Book { Id = 1, Title = "Tutunamayanlar", Author = "Oğuz Atay" },
-        new Book { Id = 2, Title = "Kürk Mantolu Madonna", Author = "Sabahattin Ali" },
-        new Book { Id = 3, Title = "İnce Memed", Author = "Yaşar Kemal" },
-    };
+        _db = db;
+    }
 
     [HttpGet()]
     public IActionResult GetAll()
     {
-        return Ok(books);
+        return Ok(_db.Books);
     } 
 
     [HttpGet("{id}")]
     public IActionResult GetById(int id)
     {
-        var book = books.FirstOrDefault(b => b.Id == id);
+        var book = _db.Books.FirstOrDefault(b => b.Id == id);
         if(book == null)
         {
             return NotFound("Kayıt Bulunamadı..");
@@ -33,35 +33,37 @@ public class BooksController : ControllerBase
     [HttpPost]
     public IActionResult Create(CreateBookRequest request)
     {
-        var newId = books.Max(b => b.Id) + 1;
-        var newBook = new Book { Id = newId, Title = request.Title, Author = request.Author };
+        var newBook = new Book {Title = request.Title, Author = request.Author };
 
-        books.Add(newBook);
+        _db.Books.Add(newBook);
+        _db.SaveChanges();
         return CreatedAtAction(nameof(GetById), new {id = newBook.Id}, newBook);
     }
 
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
-        var found = books.FirstOrDefault(b => b.Id == id);
+        var found = _db.Books.FirstOrDefault(b => b.Id == id);
         if (found == null)
         {
             return NotFound("Kayıt Bulunamadı...");
         }
-        books.Remove(found);
+        _db.Books.Remove(found);
+        _db.SaveChanges();
         return NoContent();
     }
 
     [HttpPut("{id}")]
     public IActionResult Update(UpdateBookRequest request, int id)
     {
-        var index = books.FindIndex(b => b.Id == id);
-        if (index == -1)
+        var found = _db.Books.FirstOrDefault(b => b.Id == id);
+        if (found == null)
         {
             return NotFound("Kayıt Bulunamadı...");
         }
-        books[index] = new Book { Id = id, Title = request.Title, Author = request.Author };
-
+        found.Title = request.Title;
+        found.Author = request.Author;
+        _db.SaveChanges();
         return NoContent();
     }
 }
