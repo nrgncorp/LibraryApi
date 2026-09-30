@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KutuphaneApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5b579bdcc3716108ef8e65911d6897cb1f6b59a6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0fa209f297db0edf004a3cf673f6cece9121aede")]
 [assembly: System.Reflection.AssemblyProductAttribute("KutuphaneApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KutuphaneApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

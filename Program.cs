@@ -14,6 +14,10 @@ app.MapControllers();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/openapi/v1.json", "Kutuphane API v1");
+    });
 }
 
 var summaries = new[]

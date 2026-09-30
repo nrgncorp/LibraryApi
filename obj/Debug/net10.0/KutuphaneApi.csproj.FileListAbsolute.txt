@@ -32,3 +32,4 @@
 /Users/omg/development/dotNet/KutuphaneApi/obj/Debug/net10.0/KutuphaneApi.genruntimeconfig.cache
 /Users/omg/development/dotNet/KutuphaneApi/obj/Debug/net10.0/ref/KutuphaneApi.dll
 /Users/omg/development/dotNet/KutuphaneApi/obj/Debug/net10.0/KutuphaneApi.sourcelink.json
+/Users/omg/development/dotNet/KutuphaneApi/bin/Debug/net10.0/Swashbuckle.AspNetCore.SwaggerUI.dll

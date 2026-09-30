@@ -38,4 +38,29 @@ public class BooksController : ControllerBase
         books.Add(newBook);
         return CreatedAtAction(nameof(GetById), new {id = newBook.Id}, newBook);
     }
+
+    [HttpDelete("{id}")]
+    public IActionResult Delete(int id)
+    {
+        var found = books.FirstOrDefault(b => b.Id == id);
+        if (found == null)
+        {
+            return NotFound("Kayıt Bulunamadı...");
+        }
+        books.Remove(found);
+        return NoContent();
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult Update(int id, Book book)
+    {
+        var index = books.FindIndex(b => b.Id == id);
+        if (index == -1)
+        {
+            return NotFound("Kayıt Bulunamadı...");
+        }
+        books[index] = book with {Id = id};
+
+        return NoContent();
+    }
 }
