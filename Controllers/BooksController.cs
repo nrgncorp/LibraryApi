@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using KutuphaneApi.Models;
+using KutuphaneApi.Dtos;
 
 [ApiController]
 [Route("books")]
@@ -30,10 +31,10 @@ public class BooksController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create(Book book)
+    public IActionResult Create(CreateBookRequest request)
     {
         var newId = books.Max(b => b.Id) + 1;
-        var newBook = book with {Id = newId};
+        var newBook = new Book(Id: newId, Title: request.Title, Author: request.Author);
 
         books.Add(newBook);
         return CreatedAtAction(nameof(GetById), new {id = newBook.Id}, newBook);
@@ -52,14 +53,14 @@ public class BooksController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, Book book)
+    public IActionResult Update(UpdateBookRequest request, int id)
     {
         var index = books.FindIndex(b => b.Id == id);
         if (index == -1)
         {
             return NotFound("Kayıt Bulunamadı...");
         }
-        books[index] = book with {Id = id};
+        books[index] = new Book(Id: id, Title: request.Title, Author: request.Author);
 
         return NoContent();
     }
