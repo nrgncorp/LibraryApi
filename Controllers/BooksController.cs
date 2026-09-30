@@ -8,9 +8,9 @@ public class BooksController : ControllerBase
 {
     private static readonly List<Book> books = new()
     {
-        new Book(1, "Tutunamayanlar", "Oğuz Atay"),
-        new Book(2, "Kürk Mantolu Madonna", "Sabahattin Ali"),
-        new Book(3, "İnce Memed", "Yaşar Kemal")
+        new Book { Id = 1, Title = "Tutunamayanlar", Author = "Oğuz Atay" },
+        new Book { Id = 2, Title = "Kürk Mantolu Madonna", Author = "Sabahattin Ali" },
+        new Book { Id = 3, Title = "İnce Memed", Author = "Yaşar Kemal" },
     };
 
     [HttpGet()]
@@ -34,7 +34,7 @@ public class BooksController : ControllerBase
     public IActionResult Create(CreateBookRequest request)
     {
         var newId = books.Max(b => b.Id) + 1;
-        var newBook = new Book(Id: newId, Title: request.Title, Author: request.Author);
+        var newBook = new Book { Id = newId, Title = request.Title, Author = request.Author };
 
         books.Add(newBook);
         return CreatedAtAction(nameof(GetById), new {id = newBook.Id}, newBook);
@@ -60,7 +60,7 @@ public class BooksController : ControllerBase
         {
             return NotFound("Kayıt Bulunamadı...");
         }
-        books[index] = new Book(Id: id, Title: request.Title, Author: request.Author);
+        books[index] = new Book { Id = id, Title = request.Title, Author = request.Author };
 
         return NoContent();
     }
