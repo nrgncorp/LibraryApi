@@ -1,10 +1,12 @@
 using Scalar.AspNetCore;
 using KutuphaneApi.Data;
 using Microsoft.EntityFrameworkCore;
+using KutuphaneApi.Services;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<LibraryDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Library")));
+builder.Services.AddScoped<BookService>();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();

@@ -1,29 +1,28 @@
 using Microsoft.AspNetCore.Mvc;
 using KutuphaneApi.Models;
 using KutuphaneApi.Dtos;
-using KutuphaneApi.Data;
-using Microsoft.EntityFrameworkCore;
+using KutuphaneApi.Services;
 
 [ApiController]
 [Route("books")]
 public class BooksController : ControllerBase
 {
-    private readonly LibraryDbContext _db;
-    public BooksController(LibraryDbContext db)
+    private readonly BookService _service;
+    public BooksController(BookService service)
     {
-        _db = db;
+        _service = service;
     }
 
     [HttpGet()]
     public async Task<IActionResult> GetAll()
     {
-        return Ok(await _db.Books.ToListAsync());
+        return Ok(await _service.GetAllAsync());
     } 
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
-        var book = await _db.Books.FirstOrDefaultAsync(b => b.Id == id);
+        var book = await _service.GetByIdAsync(id);
         if(book == null)
         {
             return NotFound("Kayıt Bulunamadı..");
@@ -34,37 +33,29 @@ public class BooksController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create(CreateBookRequest request)
     {
-        var newBook = new Book {Title = request.Title, Author = request.Author };
-
-        _db.Books.Add(newBook);
-        await _db.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetById), new {id = newBook.Id}, newBook);
+        var newBook = await _service.CreateAsync(request);
+        return CreatedAtAction(nameof(GetById), new { id = newBook.Id }, newBook);
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var found = await _db.Books.FirstOrDefaultAsync(b => b.Id == id);
-        if (found == null)
+        var result = await _service.DeleteAsync(id);
+        if (!result)
         {
             return NotFound("Kayıt Bulunamadı...");
         }
-        _db.Books.Remove(found);
-        await _db.SaveChangesAsync();
         return NoContent();
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(UpdateBookRequest request, int id)
     {
-        var found = await _db.Books.FirstOrDefaultAsync(b => b.Id == id);
-        if (found == null)
+        var result = await _service.UpdateAsync(request, id);
+        if (!result)
         {
-            return NotFound("Kayıt Bulunamadı...");
+            return NotFound("Kayıt Güncellenemedi..");
         }
-        found.Title = request.Title;
-        found.Author = request.Author;
-        await _db.SaveChangesAsync();
         return NoContent();
     }
 }
