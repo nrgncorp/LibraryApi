@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using KutuphaneApi.Models;
 using KutuphaneApi.Dtos;
 using KutuphaneApi.Data;
+using Microsoft.EntityFrameworkCore;
 
 [ApiController]
 [Route("books")]
@@ -14,15 +15,15 @@ public class BooksController : ControllerBase
     }
 
     [HttpGet()]
-    public IActionResult GetAll()
+    public async Task<IActionResult> GetAll()
     {
-        return Ok(_db.Books);
+        return Ok(await _db.Books.ToListAsync());
     } 
 
     [HttpGet("{id}")]
-    public IActionResult GetById(int id)
+    public async Task<IActionResult> GetById(int id)
     {
-        var book = _db.Books.FirstOrDefault(b => b.Id == id);
+        var book = await _db.Books.FirstOrDefaultAsync(b => b.Id == id);
         if(book == null)
         {
             return NotFound("Kayıt Bulunamadı..");
@@ -31,39 +32,39 @@ public class BooksController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create(CreateBookRequest request)
+    public async Task<IActionResult> Create(CreateBookRequest request)
     {
         var newBook = new Book {Title = request.Title, Author = request.Author };
 
         _db.Books.Add(newBook);
-        _db.SaveChanges();
+        await _db.SaveChangesAsync();
         return CreatedAtAction(nameof(GetById), new {id = newBook.Id}, newBook);
     }
 
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        var found = _db.Books.FirstOrDefault(b => b.Id == id);
+        var found = await _db.Books.FirstOrDefaultAsync(b => b.Id == id);
         if (found == null)
         {
             return NotFound("Kayıt Bulunamadı...");
         }
         _db.Books.Remove(found);
-        _db.SaveChanges();
+        await _db.SaveChangesAsync();
         return NoContent();
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(UpdateBookRequest request, int id)
+    public async Task<IActionResult> Update(UpdateBookRequest request, int id)
     {
-        var found = _db.Books.FirstOrDefault(b => b.Id == id);
+        var found = await _db.Books.FirstOrDefaultAsync(b => b.Id == id);
         if (found == null)
         {
             return NotFound("Kayıt Bulunamadı...");
         }
         found.Title = request.Title;
         found.Author = request.Author;
-        _db.SaveChanges();
+        await _db.SaveChangesAsync();
         return NoContent();
     }
 }
