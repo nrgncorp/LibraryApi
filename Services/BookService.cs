@@ -6,7 +6,7 @@ using Microsoft.Extensions.FileSystemGlobbing;
 
 namespace KutuphaneApi.Services;
 
-public class BookService
+public class BookService : IBookService
 {
     private readonly LibraryDbContext _db;
 

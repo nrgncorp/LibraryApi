@@ -7,8 +7,8 @@ using KutuphaneApi.Services;
 [Route("books")]
 public class BooksController : ControllerBase
 {
-    private readonly BookService _service;
-    public BooksController(BookService service)
+    private readonly IBookService _service;
+    public BooksController(IBookService service)
     {
         _service = service;
     }
