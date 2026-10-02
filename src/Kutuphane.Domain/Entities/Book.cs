@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace KutuphaneApi.Models;
+namespace Kutuphane.Domain.Entities;
 
 public class Book
 {

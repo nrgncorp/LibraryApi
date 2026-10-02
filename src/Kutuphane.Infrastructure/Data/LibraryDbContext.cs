@@ -1,7 +1,7 @@
-using KutuphaneApi.Models;
+using Kutuphane.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace KutuphaneApi.Data;
+namespace Kutuphane.Infrastructure.Data;
 
 public class LibraryDbContext : DbContext
 {

@@ -1,8 +1,8 @@
-using KutuphaneApi.Data;
-using KutuphaneApi.Dtos;
-using KutuphaneApi.Models;
+using Kutuphane.Infrastructure.Data;
+using Kutuphane.Application.Dtos;
+using Kutuphane.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.FileSystemGlobbing;
+using Kutuphane.Application.Interfaces;
 
 namespace KutuphaneApi.Services;
 

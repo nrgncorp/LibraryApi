@@ -1,5 +1,6 @@
 using Scalar.AspNetCore;
-using KutuphaneApi.Data;
+using Kutuphane.Application.Interfaces;
+using Kutuphane.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using KutuphaneApi.Services;
 var builder = WebApplication.CreateBuilder(args);

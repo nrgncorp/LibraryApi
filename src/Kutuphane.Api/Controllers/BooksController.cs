@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using KutuphaneApi.Models;
-using KutuphaneApi.Dtos;
-using KutuphaneApi.Services;
+using Kutuphane.Domain.Entities;
+using Kutuphane.Application.Dtos;
+using Kutuphane.Application.Interfaces;
 
 [ApiController]
 [Route("books")]

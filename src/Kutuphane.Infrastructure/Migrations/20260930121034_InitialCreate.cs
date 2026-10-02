@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace KutuphaneApi.Migrations
+namespace Kutuphane.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration

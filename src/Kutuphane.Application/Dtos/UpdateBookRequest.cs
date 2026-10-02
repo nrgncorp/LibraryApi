@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-namespace KutuphaneApi.Dtos;
+namespace Kutuphane.Application.Dtos;
 
-public record CreateBookRequest(
+public record UpdateBookRequest(
     [Required(ErrorMessage = "Kitap Adı boş geçilemez.." ),
     StringLength(200, ErrorMessage = "Kitap Adı en fazla 200 karakter olmalıdır..")]
     string Title,
