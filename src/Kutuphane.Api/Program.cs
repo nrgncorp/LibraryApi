@@ -2,15 +2,23 @@ using Scalar.AspNetCore;
 using Kutuphane.Application.Interfaces;
 using Kutuphane.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using KutuphaneApi.Services;
+using Kutuphane.Application.Services;
+using Kutuphane.Infrastructure.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<LibraryDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Library")));
 builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<LibraryDbContext>();
+    db.Database.Migrate();
+}
 
 app.UseHttpsRedirection();
 app.MapControllers();
