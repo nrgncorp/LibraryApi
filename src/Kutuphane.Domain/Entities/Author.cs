@@ -12,8 +12,9 @@ public class Author
     [MaxLength(100)]
     public string Country { get; set; } = string.Empty;
     [MaxLength(500)]
-    public string Biography { get; set; } = string.Empty;
-    public DateOnly BirthDate { get; set; }
+    public string? Biography { get; set; } = string.Empty;
+    
+    public DateOnly? BirthDate { get; set; }
     public DateOnly? DeathDate { get; set; }
     [MaxLength(500)]
     public string? ImageUrl { get; set; }
