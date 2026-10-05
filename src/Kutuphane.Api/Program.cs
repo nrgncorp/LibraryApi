@@ -1,8 +1,10 @@
+using Kutuphane.Application.Interfaces.Books;
+using Kutuphane.Application.Interfaces.Authors;
+using Kutuphane.Application.Services.Books;
+using Kutuphane.Application.Services.Authors;
 using Scalar.AspNetCore;
-using Kutuphane.Application.Interfaces;
 using Kutuphane.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using Kutuphane.Application.Services;
 using Kutuphane.Infrastructure.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();

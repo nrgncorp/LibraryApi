@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-namespace Kutuphane.Application.Dtos;
+namespace Kutuphane.Application.Dtos.Authors;
 
 public record UpdateAuthorRequest(
     [Required(ErrorMessage = "Yazar Adı boş geçilemez.." ),

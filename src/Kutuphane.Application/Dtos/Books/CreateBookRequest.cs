@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-namespace Kutuphane.Application.Dtos;
+namespace Kutuphane.Application.Dtos.Books;
 
 public record CreateBookRequest(
     [Required(ErrorMessage = "Kitap Adı boş geçilemez.." ),

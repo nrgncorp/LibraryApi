@@ -1,8 +1,8 @@
-using Kutuphane.Application.Dtos;
-using Kutuphane.Application.Interfaces;
+using Kutuphane.Application.Dtos.Authors;
+using Kutuphane.Application.Interfaces.Authors;
 using Kutuphane.Domain.Entities;
 
-namespace Kutuphane.Application.Services;
+namespace Kutuphane.Application.Services.Authors;
 
 public class AuthorService : IAuthorService
 {

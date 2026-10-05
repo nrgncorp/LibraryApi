@@ -1,4 +1,4 @@
-using Kutuphane.Application.Interfaces;
+using Kutuphane.Application.Interfaces.Authors;
 using Kutuphane.Domain.Entities;
 using Kutuphane.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;

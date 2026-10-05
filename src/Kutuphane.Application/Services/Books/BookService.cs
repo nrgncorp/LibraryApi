@@ -1,8 +1,8 @@
-using Kutuphane.Application.Dtos;
-using Kutuphane.Application.Interfaces;
+using Kutuphane.Application.Dtos.Books;
+using Kutuphane.Application.Interfaces.Books;
 using Kutuphane.Domain.Entities;
 
-namespace Kutuphane.Application.Services;
+namespace Kutuphane.Application.Services.Books;
 
 public class BookService : IBookService
 {

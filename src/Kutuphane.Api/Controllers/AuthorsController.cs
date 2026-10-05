@@ -1,6 +1,6 @@
+using Kutuphane.Application.Dtos.Authors;
+using Kutuphane.Application.Interfaces.Authors;
 using Microsoft.AspNetCore.Mvc;
-using Kutuphane.Application.Dtos;
-using Kutuphane.Application.Interfaces;
 
 [ApiController]
 [Route("authors")]
