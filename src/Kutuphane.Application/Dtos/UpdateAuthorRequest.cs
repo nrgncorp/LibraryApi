@@ -21,6 +21,7 @@ public record UpdateAuthorRequest(
     DateOnly? BirthDate,
     DateOnly? DeathDate,
 
+    [Required(ErrorMessage = "Aktiflik durumu boş geçilemez..")]
     bool? IsActive,
 
     [StringLength(500, ErrorMessage = "Yazar Fotoğraf Bağlantısı en fazla 500 karakter olabilir..")]
