@@ -3,11 +3,13 @@ using Kutuphane.Application.Dtos;
 using Kutuphane.Application.Interfaces;
 
 [ApiController]
-[Route("books")]
-public class BooksController : ControllerBase
+[Route("authors")]
+
+public class AuthorsController : ControllerBase
 {
-    private readonly IBookService _service;
-    public BooksController(IBookService service)
+    private readonly IAuthorService _service;
+
+    public AuthorsController(IAuthorService service)
     {
         _service = service;
     }
@@ -16,24 +18,24 @@ public class BooksController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         return Ok(await _service.GetAllAsync());
-    } 
+    }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
-        var book = await _service.GetByIdAsync(id);
-        if(book == null)
+        var author = await _service.GetByIdAsync(id);
+        if(author == null)
         {
             return NotFound("Kayıt Bulunamadı..");
         }
-        return Ok(book);
+        return Ok(author);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(CreateBookRequest request)
+    public async Task<IActionResult> Create(CreateAuthorRequest request)
     {
-        var newBook = await _service.CreateAsync(request);
-        return CreatedAtAction(nameof(GetById), new { id = newBook.Id }, newBook);
+        var newAuthor = await _service.CreateAsync(request);
+        return CreatedAtAction(nameof(GetById), new {id = newAuthor.Id }, newAuthor);
     }
 
     [HttpDelete("{id}")]
@@ -48,7 +50,7 @@ public class BooksController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(UpdateBookRequest request, int id)
+    public async Task<IActionResult> Update(UpdateAuthorRequest request, int id)
     {
         var result = await _service.UpdateAsync(request, id);
         if (!result)
