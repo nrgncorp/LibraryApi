@@ -1,4 +1,5 @@
 using Kutuphane.Application.Dtos.Books;
+using Kutuphane.Application.Interfaces;
 using Kutuphane.Application.Interfaces.Books;
 using Kutuphane.Domain.Entities;
 
@@ -7,10 +8,12 @@ namespace Kutuphane.Application.Services.Books;
 public class BookService : IBookService
 {
     private readonly IBookRepository _repository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public BookService(IBookRepository repository)
+    public BookService(IBookRepository repository, IUnitOfWork unitOfWork)
     {
         _repository = repository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<List<Book>> GetAllAsync()
@@ -26,7 +29,8 @@ public class BookService : IBookService
     public async Task<Book> CreateAsync(CreateBookRequest request)
     {
         var newBook = new Book { Title = request.Title, Author = request.Author };
-        await _repository.AddAsync(newBook);
+        _repository.Add(newBook);
+        await _unitOfWork.SaveChangesAsync();
         return newBook;
     }
 
@@ -37,7 +41,8 @@ public class BookService : IBookService
         {
             return false;
         }
-        await _repository.DeleteAsync(found);
+        _repository.Delete(found);
+        await _unitOfWork.SaveChangesAsync();
         return true;
     }
 
@@ -50,7 +55,7 @@ public class BookService : IBookService
         }
         found.Title = request.Title;
         found.Author = request.Author;
-        await _repository.SaveChangesAsync();
+        await _unitOfWork.SaveChangesAsync();
         return true;
     }
 }

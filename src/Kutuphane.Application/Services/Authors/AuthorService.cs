@@ -1,3 +1,4 @@
+using Kutuphane.Application.Interfaces;
 using Kutuphane.Application.Dtos.Authors;
 using Kutuphane.Application.Interfaces.Authors;
 using Kutuphane.Domain.Entities;
@@ -7,9 +8,11 @@ namespace Kutuphane.Application.Services.Authors;
 public class AuthorService : IAuthorService
 {
     private readonly IAuthorRepository _repository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public AuthorService(IAuthorRepository repository){
+    public AuthorService(IAuthorRepository repository, IUnitOfWork unitOfWork){
         _repository = repository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task <List<Author>> GetAllAsync()
@@ -33,7 +36,8 @@ public class AuthorService : IAuthorService
         DeathDate = request.DeathDate,
         ImageUrl = request.ImageUrl
         };
-        await _repository.AddAsync(newAuthor);
+        _repository.Add(newAuthor);
+        await _unitOfWork.SaveChangesAsync();
         return newAuthor;
     }
 
@@ -44,7 +48,8 @@ public class AuthorService : IAuthorService
         {
             return false;
         }
-        await _repository.DeleteAsync(found);
+        _repository.Delete(found);
+        await _unitOfWork.SaveChangesAsync();
         return true;
     }
 
@@ -64,7 +69,7 @@ public class AuthorService : IAuthorService
         found.ImageUrl = request.ImageUrl;
         found.UpdatedAt = DateTime.UtcNow;
         found.IsActive = request.IsActive!.Value;
-        await _repository.SaveChangesAsync();
+        await _unitOfWork.SaveChangesAsync();
         return true;
     }
 }

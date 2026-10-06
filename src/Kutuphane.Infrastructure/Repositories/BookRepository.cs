@@ -19,10 +19,9 @@ public class BookRepository : IBookRepository
         return await _db.Books.ToListAsync();
     }
 
-    public async Task AddAsync(Book book)
+    public void Add(Book book)
     {
         _db.Books.Add(book);
-        await _db.SaveChangesAsync();
     }
 
     public async Task<Book?> GetByIdAsync(int id)
@@ -30,14 +29,8 @@ public class BookRepository : IBookRepository
         return await _db.Books.FirstOrDefaultAsync(b => b.Id == id);
     }
 
-    public async Task DeleteAsync(Book book)
+    public void Delete(Book book)
     {
         _db.Books.Remove(book);
-        await _db.SaveChangesAsync();
-    }
-
-    public async Task SaveChangesAsync()
-    {
-        await _db.SaveChangesAsync();
     }
 }

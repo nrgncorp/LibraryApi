@@ -19,10 +19,9 @@ public class AuthorRepository : IAuthorRepository
         return await _db.Authors.ToListAsync();
     }
 
-    public async Task AddAsync(Author author)
+    public void Add(Author author)
     {
         _db.Authors.Add(author);
-        await _db.SaveChangesAsync();
     }
 
     public async Task<Author?> GetByIdAsync(int id)
@@ -30,14 +29,8 @@ public class AuthorRepository : IAuthorRepository
         return await _db.Authors.FirstOrDefaultAsync(a => a.Id == id);
     }
 
-    public async Task DeleteAsync(Author author)
+    public void Delete(Author author)
     {
         _db.Authors.Remove(author);
-        await _db.SaveChangesAsync();
-    }
-
-    public async Task SaveChangesAsync()
-    {
-        await _db.SaveChangesAsync();
     }
 }

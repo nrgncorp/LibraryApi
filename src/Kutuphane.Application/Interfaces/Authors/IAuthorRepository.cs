@@ -6,7 +6,6 @@ public interface IAuthorRepository
 {
     Task<List<Author>> GetAllAsync();
     Task<Author?> GetByIdAsync(int id);
-    Task AddAsync(Author author);
-    Task DeleteAsync(Author author);
-    Task SaveChangesAsync();
+    void Add(Author author);
+    void Delete(Author author);
 }
