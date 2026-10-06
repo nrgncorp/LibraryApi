@@ -1,5 +1,6 @@
 using Kutuphane.Application.Interfaces.Books;
 using Kutuphane.Application.Interfaces.Authors;
+using Kutuphane.Application.Interfaces;
 using Kutuphane.Application.Services.Books;
 using Kutuphane.Application.Services.Authors;
 using Scalar.AspNetCore;
@@ -14,6 +15,7 @@ builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
