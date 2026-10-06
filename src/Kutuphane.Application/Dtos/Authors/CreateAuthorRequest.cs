@@ -3,7 +3,8 @@ namespace Kutuphane.Application.Dtos.Authors;
 
 public record CreateAuthorRequest(
     [Required(ErrorMessage = "Yazar Adı boş geçilemez.." ),
-    StringLength(100, ErrorMessage = "Yazar Adı en fazla 100 karakter olabilir..")]
+    StringLength(100, ErrorMessage = "Yazar Adı en fazla 100 karakter olabilir.."),
+    RegularExpression(@"^[^0-9]*$", ErrorMessage = "Yazar Adı rakam içeremez..")]
     string Name,
 
     [Required(ErrorMessage = "Yazar Soyadı boş geçilemez.." ),
