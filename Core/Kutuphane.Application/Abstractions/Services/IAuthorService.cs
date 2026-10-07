@@ -1,7 +1,7 @@
 using Kutuphane.Application.Dtos.Authors;
 using Kutuphane.Domain.Entities;
 
-namespace Kutuphane.Application.Interfaces.Authors;
+namespace Kutuphane.Application.Abstractions.Services;
 
 public interface IAuthorService
 {

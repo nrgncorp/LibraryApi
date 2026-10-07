@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Kutuphane.Infrastructure.Migrations
+namespace Kutuphane.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class AddAuthors : Migration

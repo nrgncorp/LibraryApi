@@ -1,7 +1,7 @@
 using Kutuphane.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kutuphane.Infrastructure.Data;
+namespace Kutuphane.Persistence.Contexts;
 
 public class LibraryDbContext : DbContext
 {

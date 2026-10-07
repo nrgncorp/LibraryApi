@@ -1,21 +1,14 @@
-using Kutuphane.Application.Interfaces.Books;
-using Kutuphane.Application.Interfaces.Authors;
-using Kutuphane.Application.Interfaces;
-using Kutuphane.Application.Services.Books;
-using Kutuphane.Application.Services.Authors;
-using Scalar.AspNetCore;
-using Kutuphane.Infrastructure.Data;
+using Kutuphane.Application;
+using Kutuphane.Infrastructure;
+using Kutuphane.Persistence;
+using Kutuphane.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
-using Kutuphane.Infrastructure.Repositories;
+using Scalar.AspNetCore;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
-builder.Services.AddDbContext<LibraryDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Library")));
-builder.Services.AddScoped<IBookService, BookService>();
-builder.Services.AddScoped<IBookRepository, BookRepository>();
-builder.Services.AddScoped<IAuthorService, AuthorService>();
-builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddApplicationServices();
+builder.Services.AddPersistenceServices(builder.Configuration);
+builder.Services.AddInfrastructureServices();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();

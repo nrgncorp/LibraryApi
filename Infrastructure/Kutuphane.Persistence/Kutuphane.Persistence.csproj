@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\Kutuphane.Application\Kutuphane.Application.csproj" />
+    <ProjectReference Include="..\..\Core\Kutuphane.Application\Kutuphane.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>

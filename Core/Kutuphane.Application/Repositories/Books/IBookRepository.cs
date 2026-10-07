@@ -1,6 +1,6 @@
 using Kutuphane.Domain.Entities;
 
-namespace Kutuphane.Application.Interfaces.Books;
+namespace Kutuphane.Application.Repositories.Books;
 
 public interface IBookRepository
 {

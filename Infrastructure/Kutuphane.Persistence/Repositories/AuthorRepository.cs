@@ -1,9 +1,9 @@
-using Kutuphane.Application.Interfaces.Authors;
+using Kutuphane.Application.Repositories.Authors;
+using Kutuphane.Persistence.Contexts;
 using Kutuphane.Domain.Entities;
-using Kutuphane.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kutuphane.Infrastructure.Repositories;
+namespace Kutuphane.Persistence.Repositories;
 
 public class AuthorRepository : IAuthorRepository
 {

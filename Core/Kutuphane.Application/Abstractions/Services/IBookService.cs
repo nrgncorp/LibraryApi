@@ -1,7 +1,7 @@
 using Kutuphane.Application.Dtos.Books;
 using Kutuphane.Domain.Entities;
 
-namespace Kutuphane.Application.Interfaces.Books;
+namespace Kutuphane.Application.Abstractions.Services;
 
 public interface IBookService
 {

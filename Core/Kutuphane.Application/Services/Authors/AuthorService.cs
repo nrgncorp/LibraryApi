@@ -1,6 +1,7 @@
-using Kutuphane.Application.Interfaces;
+using Kutuphane.Application.Repositories.Authors;
+using Kutuphane.Application.Repositories;
+using Kutuphane.Application.Abstractions.Services;
 using Kutuphane.Application.Dtos.Authors;
-using Kutuphane.Application.Interfaces.Authors;
 using Kutuphane.Domain.Entities;
 
 namespace Kutuphane.Application.Services.Authors;

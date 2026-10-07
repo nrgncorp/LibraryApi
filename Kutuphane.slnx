@@ -1,8 +1,13 @@
 <Solution>
-  <Folder Name="/src/">
-    <Project Path="src/Kutuphane.Api/Kutuphane.Api.csproj" />
-    <Project Path="src/Kutuphane.Application/Kutuphane.Application.csproj" />
-    <Project Path="src/Kutuphane.Domain/Kutuphane.Domain.csproj" />
-    <Project Path="src/Kutuphane.Infrastructure/Kutuphane.Infrastructure.csproj" />
+  <Folder Name="/Core/">
+    <Project Path="Core/Kutuphane.Application/Kutuphane.Application.csproj" />
+    <Project Path="Core/Kutuphane.Domain/Kutuphane.Domain.csproj" />
+  </Folder>
+  <Folder Name="/Infrastructure/">
+    <Project Path="Infrastructure/Kutuphane.Infrastructure/Kutuphane.Infrastructure.csproj" />
+    <Project Path="Infrastructure/Kutuphane.Persistence/Kutuphane.Persistence.csproj" />
+  </Folder>
+  <Folder Name="/Presentation/">
+    <Project Path="Presentation/Kutuphane.Api/Kutuphane.Api.csproj" />
   </Folder>
 </Solution>

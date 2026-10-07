@@ -1,6 +1,7 @@
-using Kutuphane.Application.Interfaces;
+using Kutuphane.Application.Repositories;
+using Kutuphane.Persistence.Contexts;
 
-namespace Kutuphane.Infrastructure.Data;
+namespace Kutuphane.Persistence;
 
 public class UnitOfWork : IUnitOfWork
 {

@@ -2,14 +2,15 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-COPY src/Kutuphane.Domain/Kutuphane.Domain.csproj src/Kutuphane.Domain/
-COPY src/Kutuphane.Application/Kutuphane.Application.csproj src/Kutuphane.Application/
-COPY src/Kutuphane.Infrastructure/Kutuphane.Infrastructure.csproj src/Kutuphane.Infrastructure/
-COPY src/Kutuphane.Api/Kutuphane.Api.csproj src/Kutuphane.Api/
-RUN dotnet restore src/Kutuphane.Api/Kutuphane.Api.csproj
+COPY Core/Kutuphane.Domain/Kutuphane.Domain.csproj Core/Kutuphane.Domain/
+COPY Core/Kutuphane.Application/Kutuphane.Application.csproj Core/Kutuphane.Application/
+COPY Infrastructure/Kutuphane.Infrastructure/Kutuphane.Infrastructure.csproj Infrastructure/Kutuphane.Infrastructure/
+COPY Infrastructure/Kutuphane.Persistence/Kutuphane.Persistence.csproj Infrastructure/Kutuphane.Persistence/
+COPY Presentation/Kutuphane.Api/Kutuphane.Api.csproj Presentation/Kutuphane.Api/
+RUN dotnet restore Presentation/Kutuphane.Api/Kutuphane.Api.csproj
 
 COPY . .
-RUN dotnet publish src/Kutuphane.Api/Kutuphane.Api.csproj -c Release -o /app
+RUN dotnet publish Presentation/Kutuphane.Api/Kutuphane.Api.csproj -c Release -o /app
 
 # ---------- 2. AŞAMA: Çalıştırma ----------
 FROM mcr.microsoft.com/dotnet/aspnet:10.0

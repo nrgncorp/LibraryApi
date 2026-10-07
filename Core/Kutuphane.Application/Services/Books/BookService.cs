@@ -1,6 +1,7 @@
+using Kutuphane.Application.Repositories.Books;
+using Kutuphane.Application.Repositories;
+using Kutuphane.Application.Abstractions.Services;
 using Kutuphane.Application.Dtos.Books;
-using Kutuphane.Application.Interfaces;
-using Kutuphane.Application.Interfaces.Books;
 using Kutuphane.Domain.Entities;
 
 namespace Kutuphane.Application.Services.Books;
@@ -55,6 +56,7 @@ public class BookService : IBookService
         }
         found.Title = request.Title;
         found.Author = request.Author;
+        found.UpdatedAt = DateTime.UtcNow;
         await _unitOfWork.SaveChangesAsync();
         return true;
     }

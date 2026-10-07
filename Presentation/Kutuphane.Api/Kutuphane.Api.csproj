@@ -17,8 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Kutuphane.Application\Kutuphane.Application.csproj" />
-    <ProjectReference Include="..\Kutuphane.Infrastructure\Kutuphane.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Core\Kutuphane.Application\Kutuphane.Application.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Kutuphane.Persistence\Kutuphane.Persistence.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Kutuphane.Infrastructure\Kutuphane.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

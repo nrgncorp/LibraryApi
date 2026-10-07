@@ -1,6 +1,6 @@
 using Kutuphane.Domain.Entities;
 
-namespace Kutuphane.Application.Interfaces.Authors;
+namespace Kutuphane.Application.Repositories.Authors;
 
 public interface IAuthorRepository
 {
