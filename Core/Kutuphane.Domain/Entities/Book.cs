@@ -8,6 +8,6 @@ public class Book : BaseEntity
     [MaxLength(200)]
     public string Title { get; set; } = string.Empty;
 
-    [MaxLength(100)]
-    public string Author { get; set; } = string.Empty;
+    public int AuthorId { get; set; }
+    public Author Author { get; set; } = null!;
 }

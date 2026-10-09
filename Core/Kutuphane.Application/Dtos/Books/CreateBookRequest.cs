@@ -6,8 +6,6 @@ public record CreateBookRequest(
     StringLength(200, ErrorMessage = "Kitap Adı en fazla 200 karakter olabilir..")]
     string Title,
 
-    [Required(ErrorMessage = "Yazar Adı boş geçilemez.." ),
-    StringLength(100, ErrorMessage = "Yazar adı en fazla 100 karakter olabilir.."),
-    RegularExpression(@"^[^0-9]*$", ErrorMessage = "Yazar Adı rakam içeremez..")]
-    string Author
+    [Required(ErrorMessage = "Yazar Adı boş geçilemez.." ), Range(1, int.MaxValue, ErrorMessage = "Geçerli bir yazar seçiniz..")]
+    int? AuthorId
 );

@@ -3,36 +3,49 @@ using Kutuphane.Application.Repositories;
 using Kutuphane.Application.Abstractions.Services;
 using Kutuphane.Application.Dtos.Books;
 using Kutuphane.Domain.Entities;
+using Kutuphane.Application.Repositories.Authors;
 
 namespace Kutuphane.Application.Services.Books;
 
 public class BookService : IBookService
 {
     private readonly IBookRepository _repository;
+    private readonly IAuthorRepository _authorRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public BookService(IBookRepository repository, IUnitOfWork unitOfWork)
+    public BookService(IBookRepository repository, IUnitOfWork unitOfWork, IAuthorRepository authorRepository)
     {
         _repository = repository;
+        _authorRepository = authorRepository;
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<List<Book>> GetAllAsync()
+    public async Task<List<BookResponse>> GetAllAsync()
     {
-        return await _repository.GetAllAsync();
+        var books = await _repository.GetAllAsync();
+        return books.Select(ToResponse).ToList();
     }
 
-    public async Task<Book?> GetByIdAsync(int id)
+    public async Task<BookResponse?> GetByIdAsync(int id)
     {
-        return await _repository.GetByIdAsync(id);
+        var book = await _repository.GetByIdAsync(id);
+        if(book == null)
+        {
+            return null;
+        }
+        return ToResponse(book);
     }
 
-    public async Task<Book> CreateAsync(CreateBookRequest request)
+    public async Task<BookResponse?> CreateAsync(CreateBookRequest request)
     {
-        var newBook = new Book { Title = request.Title, Author = request.Author };
+        var author = await _authorRepository.GetByIdAsync(request.AuthorId!.Value);
+        if (author == null){
+            return null;
+        }
+        var newBook = new Book { Title = request.Title, AuthorId = request.AuthorId!.Value };
         _repository.Add(newBook);
         await _unitOfWork.SaveChangesAsync();
-        return newBook;
+        return ToResponse(newBook);
     }
 
     public async Task<bool> DeleteAsync(int id)
@@ -49,15 +62,24 @@ public class BookService : IBookService
 
     public async Task<bool> UpdateAsync(UpdateBookRequest request, int id)
     {
+        var author = await _authorRepository.GetByIdAsync(request.AuthorId!.Value);
+        if (author == null){
+            return false;
+        }
         var found = await _repository.GetByIdAsync(id);
         if (found == null)
         {
             return false;
         }
         found.Title = request.Title;
-        found.Author = request.Author;
+        found.AuthorId = request.AuthorId!.Value;
         found.UpdatedAt = DateTime.UtcNow;
         await _unitOfWork.SaveChangesAsync();
         return true;
+    }
+
+    private static BookResponse ToResponse(Book book)
+    {
+        return new BookResponse(book.Id, book.Title, book.AuthorId, book.CreatedAt, book.UpdatedAt);
     }
 }

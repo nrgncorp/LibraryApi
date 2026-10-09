@@ -33,6 +33,10 @@ public class BooksController : ControllerBase
     public async Task<IActionResult> Create(CreateBookRequest request)
     {
         var newBook = await _service.CreateAsync(request);
+        if(newBook == null)
+        {
+            return BadRequest("Yazar Bulunamadı..");
+        }
         return CreatedAtAction(nameof(GetById), new { id = newBook.Id }, newBook);
     }
 

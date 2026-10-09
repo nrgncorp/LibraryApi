@@ -6,8 +6,6 @@ public record UpdateBookRequest(
     StringLength(200, ErrorMessage = "Kitap Adı en fazla 200 karakter olmalıdır..")]
     string Title,
 
-    [Required(ErrorMessage = "Yazar Adı boş geçilemez.." ),
-    StringLength(100, ErrorMessage = "Yazar adı en fazla 100 karakter olmalıdır.."),
-    RegularExpression(@"^[^0-9]*$", ErrorMessage = "Yazar Adı rakam içeremez..")]
-    string Author
+    [Required(ErrorMessage = "Yazar boş geçilemez.." ), Range(1, int.MaxValue, ErrorMessage = "Geçerli bir yazar seçiniz..")]
+    int? AuthorId
 );
