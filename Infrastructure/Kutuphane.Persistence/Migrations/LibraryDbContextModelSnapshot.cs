@@ -84,6 +84,9 @@ namespace Kutuphane.Persistence.Migrations
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
+                    b.Property<int>("BookCategoryId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -99,7 +102,36 @@ namespace Kutuphane.Persistence.Migrations
 
                     b.HasIndex("AuthorId");
 
+                    b.HasIndex("BookCategoryId");
+
                     b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("Kutuphane.Domain.Entities.BookCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BookCategories");
                 });
 
             modelBuilder.Entity("Kutuphane.Domain.Entities.Book", b =>
@@ -110,7 +142,15 @@ namespace Kutuphane.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Kutuphane.Domain.Entities.BookCategory", "BookCategory")
+                        .WithMany()
+                        .HasForeignKey("BookCategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Author");
+
+                    b.Navigation("BookCategory");
                 });
 #pragma warning restore 612, 618
         }

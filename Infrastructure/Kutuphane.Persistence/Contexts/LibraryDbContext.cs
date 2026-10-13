@@ -9,6 +9,7 @@ public class LibraryDbContext : DbContext
 
     public DbSet<Book> Books => Set<Book>();
     public DbSet<Author> Authors => Set<Author>();
+    public DbSet<BookCategory> BookCategories => Set<BookCategory>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -16,6 +17,12 @@ public class LibraryDbContext : DbContext
             .HasOne(b => b.Author)
             .WithMany()
             .HasForeignKey(b => b.AuthorId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Entity<Book>()
+            .HasOne(b => b.BookCategory)
+            .WithMany()
+            .HasForeignKey(b => b.BookCategoryId)
             .OnDelete(DeleteBehavior.Restrict);
 
         base.OnModelCreating(builder);

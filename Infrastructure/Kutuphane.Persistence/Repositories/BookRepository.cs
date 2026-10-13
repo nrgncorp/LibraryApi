@@ -29,6 +29,7 @@ public class BookRepository : IBookRepository
         return await _db.Books.FirstOrDefaultAsync(b => b.Id == id);
     }
 
+
     public void Delete(Book book)
     {
         _db.Books.Remove(book);
