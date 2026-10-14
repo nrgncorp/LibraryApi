@@ -9,6 +9,6 @@ public class Book : BaseEntity
     public string Title { get; set; } = string.Empty;
     public int AuthorId { get; set; }
     public Author Author { get; set; } = null!;
-    public int BookCategoryId { get; set; }
+    public int CategoryId { get; set; }
     public BookCategory BookCategory { get; set; } = null!;
 }

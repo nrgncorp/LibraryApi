@@ -22,7 +22,7 @@ public class LibraryDbContext : DbContext
         builder.Entity<Book>()
             .HasOne(b => b.BookCategory)
             .WithMany()
-            .HasForeignKey(b => b.BookCategoryId)
+            .HasForeignKey(b => b.CategoryId)
             .OnDelete(DeleteBehavior.Restrict);
 
         base.OnModelCreating(builder);

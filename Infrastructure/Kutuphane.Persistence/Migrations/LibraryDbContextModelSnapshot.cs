@@ -84,7 +84,7 @@ namespace Kutuphane.Persistence.Migrations
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("BookCategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -102,7 +102,7 @@ namespace Kutuphane.Persistence.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.HasIndex("BookCategoryId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Books");
                 });
@@ -144,7 +144,7 @@ namespace Kutuphane.Persistence.Migrations
 
                     b.HasOne("Kutuphane.Domain.Entities.BookCategory", "BookCategory")
                         .WithMany()
-                        .HasForeignKey("BookCategoryId")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

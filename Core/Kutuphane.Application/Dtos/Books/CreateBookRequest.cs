@@ -6,6 +6,10 @@ public record CreateBookRequest(
     StringLength(200, ErrorMessage = "Kitap Adı en fazla 200 karakter olabilir..")]
     string Title,
 
+    [Required(ErrorMessage = "Kategori boş geçilemez.." ), Range(1, int.MaxValue, ErrorMessage = "Geçerli bir kategori seçiniz..")]
+    int? CategoryId,
+
     [Required(ErrorMessage = "Yazar Adı boş geçilemez.." ), Range(1, int.MaxValue, ErrorMessage = "Geçerli bir yazar seçiniz..")]
     int? AuthorId
+    
 );

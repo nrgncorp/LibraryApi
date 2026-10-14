@@ -35,7 +35,7 @@ public class BooksController : ControllerBase
         var newBook = await _service.CreateAsync(request);
         if(newBook == null)
         {
-            return BadRequest("Yazar Bulunamadı..");
+            return BadRequest("Yazar veya Kategori Bulunamadı..");
         }
         return CreatedAtAction(nameof(GetById), new { id = newBook.Id }, newBook);
     }
@@ -57,7 +57,7 @@ public class BooksController : ControllerBase
         var result = await _service.UpdateAsync(request, id);
         if (!result)
         {
-            return NotFound("Kayıt Güncellenemedi..");
+            return NotFound("Kayıt Güncellenemedi : Kitap, Yazar veya Kategori bulunamadı");
         }
         return NoContent();
     }

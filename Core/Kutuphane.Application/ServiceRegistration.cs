@@ -1,5 +1,6 @@
 using Kutuphane.Application.Abstractions.Services;
 using Kutuphane.Application.Services.Authors;
+using Kutuphane.Application.Services.BookCategorys;
 using Kutuphane.Application.Services.Books;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,5 +12,6 @@ public static class ServiceRegistration
     {
         services.AddScoped<IBookService, BookService>();
         services.AddScoped<IAuthorService, AuthorService>();
+        services.AddScoped<IBookCategoryService, BookCategoryService>();
     }
 }

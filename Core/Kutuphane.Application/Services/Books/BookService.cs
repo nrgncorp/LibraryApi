@@ -11,12 +11,14 @@ public class BookService : IBookService
 {
     private readonly IBookRepository _repository;
     private readonly IAuthorRepository _authorRepository;
+    private readonly IBookCategoryRepository _bookCategoryRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public BookService(IBookRepository repository, IUnitOfWork unitOfWork, IAuthorRepository authorRepository)
+    public BookService(IBookRepository repository, IUnitOfWork unitOfWork, IAuthorRepository authorRepository, IBookCategoryRepository bookCategoryRepository)
     {
         _repository = repository;
         _authorRepository = authorRepository;
+        _bookCategoryRepository = bookCategoryRepository;
         _unitOfWork = unitOfWork;
     }
 
@@ -39,10 +41,11 @@ public class BookService : IBookService
     public async Task<BookResponse?> CreateAsync(CreateBookRequest request)
     {
         var author = await _authorRepository.GetByIdAsync(request.AuthorId!.Value);
-        if (author == null){
+        var bookCategory = await _bookCategoryRepository.GetByIdAsync(request.CategoryId!.Value);
+        if (author == null || bookCategory == null){
             return null;
         }
-        var newBook = new Book { Title = request.Title, AuthorId = request.AuthorId!.Value };
+        var newBook = new Book { Title = request.Title, AuthorId = request.AuthorId!.Value, CategoryId = request.CategoryId!.Value };
         _repository.Add(newBook);
         await _unitOfWork.SaveChangesAsync();
         return ToResponse(newBook);
@@ -63,7 +66,8 @@ public class BookService : IBookService
     public async Task<bool> UpdateAsync(UpdateBookRequest request, int id)
     {
         var author = await _authorRepository.GetByIdAsync(request.AuthorId!.Value);
-        if (author == null){
+        var bookCategory = await _bookCategoryRepository.GetByIdAsync(request.CategoryId!.Value);
+        if (author == null || bookCategory == null){
             return false;
         }
         var found = await _repository.GetByIdAsync(id);
@@ -73,6 +77,7 @@ public class BookService : IBookService
         }
         found.Title = request.Title;
         found.AuthorId = request.AuthorId!.Value;
+        found.CategoryId = request.CategoryId!.Value;
         found.UpdatedAt = DateTime.UtcNow;
         await _unitOfWork.SaveChangesAsync();
         return true;
@@ -80,6 +85,6 @@ public class BookService : IBookService
 
     private static BookResponse ToResponse(Book book)
     {
-        return new BookResponse(book.Id, book.Title, book.AuthorId, book.CreatedAt, book.UpdatedAt);
+        return new BookResponse(book.Id, book.Title, book.AuthorId, book.CategoryId, book.CreatedAt, book.UpdatedAt);
     }
 }

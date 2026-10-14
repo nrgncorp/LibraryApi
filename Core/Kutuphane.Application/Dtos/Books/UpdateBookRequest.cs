@@ -6,6 +6,9 @@ public record UpdateBookRequest(
     StringLength(200, ErrorMessage = "Kitap Adı en fazla 200 karakter olmalıdır..")]
     string Title,
 
+    [Required(ErrorMessage = "Kategori boş geçilemez.." ), Range(1, int.MaxValue, ErrorMessage = "Geçerli bir kategori seçiniz..")]
+    int? CategoryId,
+
     [Required(ErrorMessage = "Yazar boş geçilemez.." ), Range(1, int.MaxValue, ErrorMessage = "Geçerli bir yazar seçiniz..")]
     int? AuthorId
 );

@@ -18,6 +18,7 @@ public static class ServiceRegistration
 
         services.AddScoped<IBookRepository, BookRepository>();
         services.AddScoped<IAuthorRepository, AuthorRepository>();
+        services.AddScoped<IBookCategoryRepository, BookCategoryRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 }
