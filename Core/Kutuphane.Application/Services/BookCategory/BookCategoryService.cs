@@ -46,8 +46,8 @@ public class BookCategoryService : IBookCategoryService
     public async Task<bool> DeleteAsync(int id)
     {
         var found = await _repository.GetByIdAsync(id);
-        var CategoryBooks = await _bookRepository.GetByCategoryIdAsync(id);
-        if(found == null || CategoryBooks.Count > 0)
+        var categoryBooks = await _bookRepository.GetByCategoryIdAsync(id);
+        if(found == null || categoryBooks.Count > 0)
         {
             return false;
         }

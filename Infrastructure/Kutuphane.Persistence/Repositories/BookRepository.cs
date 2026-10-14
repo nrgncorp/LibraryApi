@@ -34,6 +34,11 @@ public class BookRepository : IBookRepository
         return await _db.Books.Where(b => b.CategoryId == categoryId).ToListAsync();
     }
 
+    public async Task<List<Book>> GetByAuthorIdAsync(int authorId)
+    {
+        return await _db.Books.Where(b => b.AuthorId == authorId).ToListAsync();
+    }
+
     public void Delete(Book book)
     {
         _db.Books.Remove(book);

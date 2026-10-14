@@ -44,7 +44,7 @@ public class AuthorsController : ControllerBase
         var result = await _service.DeleteAsync(id);
         if (!result)
         {
-            return NotFound("Kayıt Silinemedi..");
+            return NotFound("Kayıt Silinemedi: Yazar bulunamadı veya Yazara tanımlı kitap(lar) var.");
         }
         return NoContent();
     }

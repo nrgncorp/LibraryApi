@@ -32,8 +32,15 @@ public class BooksController : ControllerBase
     [HttpGet("category/{categoryId}")]
     public async Task<IActionResult> GetByCategoryId(int categoryId)
     {
-        var book = await _service.GetByCategoryIdAsync(categoryId);
-        return Ok(book);
+        var books = await _service.GetByCategoryIdAsync(categoryId);
+        return Ok(books);
+    }
+
+    [HttpGet("author/{authorId}")]
+    public async Task<IActionResult> GetByAuthorId(int authorId)
+    {
+        var books = await _service.GetByAuthorIdAsync(authorId);
+        return Ok(books);
     }
 
     [HttpPost]

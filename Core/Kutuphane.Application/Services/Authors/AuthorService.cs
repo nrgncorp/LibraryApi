@@ -3,16 +3,19 @@ using Kutuphane.Application.Repositories;
 using Kutuphane.Application.Abstractions.Services;
 using Kutuphane.Application.Dtos.Authors;
 using Kutuphane.Domain.Entities;
+using Kutuphane.Application.Repositories.Books;
 
 namespace Kutuphane.Application.Services.Authors;
 
 public class AuthorService : IAuthorService
 {
     private readonly IAuthorRepository _repository;
+    private readonly IBookRepository _bookRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public AuthorService(IAuthorRepository repository, IUnitOfWork unitOfWork){
+    public AuthorService(IAuthorRepository repository, IBookRepository bookRepository, IUnitOfWork unitOfWork){
         _repository = repository;
+        _bookRepository = bookRepository;
         _unitOfWork = unitOfWork;
     }
 
@@ -45,7 +48,8 @@ public class AuthorService : IAuthorService
     public async Task<bool> DeleteAsync(int id)
     {
         var found = await _repository.GetByIdAsync(id);
-        if (found == null)
+        var authorBooks = await _bookRepository.GetByAuthorIdAsync(id);
+        if (found == null || authorBooks.Count > 0)
         {
             return false;
         }
