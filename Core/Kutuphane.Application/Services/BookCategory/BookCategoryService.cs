@@ -2,17 +2,20 @@ using Kutuphane.Application.Repositories;
 using Kutuphane.Application.Abstractions.Services;
 using Kutuphane.Domain.Entities;
 using Kutuphane.Application.Dtos.BookCategory;
+using Kutuphane.Application.Repositories.Books;
 
 namespace Kutuphane.Application.Services.BookCategorys;
 
 public class BookCategoryService : IBookCategoryService
 {
     private readonly IBookCategoryRepository _repository;
+    private readonly IBookRepository _bookRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public BookCategoryService(IBookCategoryRepository repository, IUnitOfWork unitOfWork)
+    public BookCategoryService(IBookCategoryRepository repository, IBookRepository bookRepository, IUnitOfWork unitOfWork)
     {
         _repository = repository;
+        _bookRepository = bookRepository;
         _unitOfWork = unitOfWork;
     }
 
@@ -43,7 +46,8 @@ public class BookCategoryService : IBookCategoryService
     public async Task<bool> DeleteAsync(int id)
     {
         var found = await _repository.GetByIdAsync(id);
-        if(found == null)
+        var CategoryBooks = await _bookRepository.GetByCategoryIdAsync(id);
+        if(found == null || CategoryBooks.Count > 0)
         {
             return false;
         }

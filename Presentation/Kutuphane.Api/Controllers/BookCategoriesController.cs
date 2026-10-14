@@ -46,7 +46,7 @@ public class BookCategoriesController : ControllerBase
         var result = await _service.DeleteAsync(id);
         if (!result)
         {
-            return NotFound("Kayıt Silinemedi..");
+            return NotFound("Kayıt Silinemedi: Kategori bulunamadı veya Kategoriye tanımlı kitap(lar) var.");
         }
         return NoContent();
     }

@@ -7,6 +7,7 @@ public interface IBookService
 {
     Task<List<BookResponse>> GetAllAsync();
     Task<BookResponse?> GetByIdAsync(int id);
+    Task<List<BookResponse>> GetByCategoryIdAsync(int categoryId);
     Task<BookResponse?> CreateAsync(CreateBookRequest request);
     Task<bool> DeleteAsync(int id);
     Task<bool> UpdateAsync(UpdateBookRequest request, int id);

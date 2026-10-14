@@ -29,6 +29,13 @@ public class BooksController : ControllerBase
         return Ok(book);
     }
 
+    [HttpGet("category/{categoryId}")]
+    public async Task<IActionResult> GetByCategoryId(int categoryId)
+    {
+        var book = await _service.GetByCategoryIdAsync(categoryId);
+        return Ok(book);
+    }
+
     [HttpPost]
     public async Task<IActionResult> Create(CreateBookRequest request)
     {

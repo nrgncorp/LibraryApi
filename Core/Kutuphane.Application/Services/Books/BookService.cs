@@ -38,6 +38,12 @@ public class BookService : IBookService
         return ToResponse(book);
     }
 
+    public async Task<List<BookResponse>> GetByCategoryIdAsync(int categoryId)
+    {
+        var books = await _repository.GetByCategoryIdAsync(categoryId);
+        return books.Select(ToResponse).ToList();
+    }
+
     public async Task<BookResponse?> CreateAsync(CreateBookRequest request)
     {
         var author = await _authorRepository.GetByIdAsync(request.AuthorId!.Value);
